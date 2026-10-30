@@ -45,6 +45,10 @@ class SiteRubricTests(unittest.TestCase):
         self.assertIsNotNone(query)
         self.assertRegex(query.group(1), r'\.intro\s*\{\s*display:\s*block')
 
+    def test_site_requests_fresh_css_after_publication(self):
+        """Una caché antigua de GitHub Pages no debe impedir aplicar el CSS nuevo."""
+        self.assertRegex(HTML, r'href="assets/css/styles\.css\?v=[0-9a-zA-Z_-]+"')
+
     def test_visible_images_use_real_assets_and_alt_text(self):
         """Una referencia a imagen inexistente o sin descripción debe fallar."""
         parser = ImageAndLinkParser()
